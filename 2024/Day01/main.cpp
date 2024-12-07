@@ -25,10 +25,11 @@ long long part1(const std::vector<std::string> & input)
     assert(firstHeap.size() == secondHeap.size());
 
     while (!firstHeap.empty()) {
-      result += firstHeap.top() + secondHeap.top();
+      result += std::abs(firstHeap.top() - secondHeap.top());
       firstHeap.pop();
       secondHeap.pop();
     }
+    std::cout << result << std::endl;
     return result;
 }
 
@@ -42,7 +43,7 @@ int main(void)
 {
     FileHandler testFileHandler("input-files/2024/day01_testinput1.txt");
     std::vector<std::string> testinput = StringParser::toVector(testFileHandler.getBuffer(), "\n");
-    //assert(part1(testinput) == 11);
+    assert(part1(testinput) == 11);
 
     FileHandler fileHandler("input-files/2024/day01.txt");
     std::vector<std::string> input = StringParser::toVector(fileHandler.getBuffer(), "\n");

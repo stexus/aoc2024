@@ -1,6 +1,7 @@
 #include "StringParser.hpp"
 
 #include <sstream>
+#include <iostream>
 
 std::vector<std::string> StringParser::toVector(std::string src, const std::string & delimiter)
 {
@@ -28,7 +29,6 @@ std::vector<int> StringParser::toIntVector(std::string src, const std::string & 
     std::vector<int> result;
     for(const std::string & item : vec)
     {
-        std::cout << item << std::endl;
         result.push_back(std::stoi(item));
     }
     return result;

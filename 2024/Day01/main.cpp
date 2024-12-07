@@ -6,6 +6,7 @@
 #include <string>
 #include <iterator>
 #include <queue>
+#include <unordered_map>
 
 #include "FileHandler.hpp"
 #include "StringParser.hpp"
@@ -36,7 +37,31 @@ long long part1(const std::vector<std::string> & input)
 
 int part2(const std::vector<std::string> & input) 
 {
-  return 31;
+    long long result = 0;
+    std::unordered_map <int, int> freqInSecondList = {};
+    std::vector<int> firstList;
+
+    for (const std::string& line: input)
+    {
+        std::vector<int> split = StringParser::toIntVector(line, "   ");
+        firstList.push_back(split[0]);
+        /*if (!freqInSecondList.contains(split[0])) {*/
+        /*  freqInSecondList.insert({split[0], 0});*/
+        /*}*/
+        if (auto secondFreq = freqInSecondList.find(split[1]); secondFreq != freqInSecondList.end()) {
+          freqInSecondList.insert_or_assign(split[1], secondFreq->second + 1);
+        } else {
+          freqInSecondList.insert({split[1], 1});
+        }
+    }
+    for (auto it = firstList.begin(); it != firstList.end(); ++it) {
+        if (auto secondFreq = freqInSecondList.find(*it); secondFreq != freqInSecondList.end()) {
+          result += secondFreq->second * secondFreq->first;
+        }
+    }
+
+    std::cout << result << std::endl;
+    return result;
 }
 
 int main(void) 
